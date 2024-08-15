@@ -2,11 +2,12 @@
 
 ## Day 1
 
-### Created a Git repo (public)
+### <h1> Created a Git repo (public)
 #### Created this repo from GitHub web
 
+<br>
 
-### Installed Jenkins server for windows
+### <h1> Installed Jenkins server for windows
 #### This server is set to run on port 8080, by default, can change the port. However,it is choosen to run on port 8080.
 
 Key points
