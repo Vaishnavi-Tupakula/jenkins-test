@@ -16,6 +16,9 @@ public class GenerateChangeLogs {
 
     private static String curFolder="";
 
+    static int id=1;
+    static int fileid=1;
+
     //Generate XML
     public static Element generateXML() throws Exception
     {
@@ -53,6 +56,7 @@ public class GenerateChangeLogs {
             
             if (filename.isDirectory()) 
             {
+                curFolder=filename.getAbsolutePath();
                 findFiles(filename,rootfolder);
             }
 
@@ -66,11 +70,11 @@ public class GenerateChangeLogs {
                 xmlfiles.add(filename.getAbsolutePath());
             }
         }
-        generateChangeSets(sqlfiles,);
+        generateChangeSets(sqlfiles,curFolder);
         generateIncludeTag(xmlfiles);
     }
 
-    public static void generateChangeSets(ArrayList<String> sqlfiles) throws Exception
+    public static void generateChangeSets(ArrayList<String> sqlfiles,String curFolder) throws Exception
     {
         if(sqlfiles.size()==0)
             return;
@@ -89,18 +93,51 @@ public class GenerateChangeLogs {
         root.setAttribute("xmlns:pro","http://www.liquibase.org/xml/ns/pro");
         root.setAttribute("xsi:schemaLocation","http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd");
     
-        for()
+        document.appendChild(root);
+        
+        for(String apath:sqlfiles)
+        {
+            Element ch=document.createElement("changeSet");
+            ch.setAttribute("id",Integer.valueOf(id).toString());
+            id++;
+            ch.setAttribute("author","user");
 
+            root.appendChild(ch);
+
+            Element sqlFile=document.createElement("sqlFile");
+            sqlFile.setAttribute("path", getRelativePath(apath,curFolder));
+
+            ch.appendChild(sqlFile);
+
+        }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance(); 
         Transformer transformer = transformerFactory.newTransformer(); 
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        DOMSource source = new DOMSource();
-        StreamResult result = new StreamResult("D:\\Projects\\jenkins-test\\changelog.xml"); 
+        DOMSource source = new DOMSource(document);
+        String path=curFolder+"\\"+fileid+"changelog.xml";
+        StreamResult result = new StreamResult(path);
+        fileid++;
         transformer.transform(source, result); 
 
     }
+
+
+    public static String getRelativePath(String fpath,String curFolder)
+    {
+        String res="";
+
+        for(int i=0;i<fpath.length();i++)
+        {
+            if(i>curFolder.length())
+                res+=fpath.charAt(i);
+        }
+
+        return res;
+    }
+
+
 
     public static void generateIncludeTag(ArrayList<String> xmlfiles)
     {
@@ -117,6 +154,8 @@ public class GenerateChangeLogs {
 
     public static void main(String[] args) throws Exception {
         findFiles(new File(rootfolder),rootfolder);
+    
     }
+
     
 }
