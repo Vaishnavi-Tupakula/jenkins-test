@@ -19,7 +19,7 @@ public class GenerateChangeLogs {
     static int id=1;
     static int fileid=1;
 
-    //Generate XML
+    /*Generate XML
     public static Element generateXML() throws Exception
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); 
@@ -44,12 +44,11 @@ public class GenerateChangeLogs {
         StreamResult result = new StreamResult("D:\\Projects\\jenkins-test\\changelog.xml"); 
         transformer.transform(source, result);  
         return root;
-    }
+    }*/
 
-    public static void check(File[] files) throws Exception
+    public static void checksql(File[] files) throws Exception
     {
         ArrayList<String> sqlfiles=new ArrayList<>();
-        ArrayList<String> xmlfiles=new ArrayList<>();
 
         for (File filename : files) 
         {
@@ -57,7 +56,7 @@ public class GenerateChangeLogs {
             if (filename.isDirectory()) 
             {
                 curFolder=filename.getAbsolutePath();
-                findFiles(filename,rootfolder);
+                findsqlFiles(filename,rootfolder);
             }
 
             else if(filename.getName().endsWith(".sql"))
@@ -67,11 +66,10 @@ public class GenerateChangeLogs {
 
             else if(filename.getName().endsWith(".xml"))
             {
-                xmlfiles.add(filename.getAbsolutePath());
+                continue;
             }
         }
         generateChangeSets(sqlfiles,curFolder);
-        generateIncludeTag(xmlfiles);
     }
 
     public static void generateChangeSets(ArrayList<String> sqlfiles,String curFolder) throws Exception
@@ -146,14 +144,46 @@ public class GenerateChangeLogs {
     }
 
 
-    public static void findFiles(File curFolder,String rootFolder) throws Exception
+    public static void findsqlFiles(File curFolder,String rootFolder) throws Exception
     {
         File[] files=curFolder.listFiles();
-        check(files);
+        checksql(files);
+    }
+
+    public static void findxmlFiles(File curFolder,String rootFolder) throws Exception
+    {
+        File[] files=curFolder.listFiles();
+        checkxml(files);
+    }
+
+    public static void checkxml(File[] files) throws Exception
+    {
+        ArrayList<String> xmlfiles=new ArrayList<>();
+
+        for (File filename : files) 
+        {
+            
+            if (filename.isDirectory()) 
+            {
+                curFolder=filename.getAbsolutePath();
+                findxmlFiles(filename,rootfolder);
+            }
+
+            else if(filename.getName().endsWith(".sql"))
+            {
+                continue;
+            }
+
+            else if(filename.getName().endsWith(".xml"))
+            {
+                xmlfiles.add(filename.getAbsolutePath());
+            }
+        }
+        //generateIncludeTag(xmlfiles,curFolder);
     }
 
     public static void main(String[] args) throws Exception {
-        findFiles(new File(rootfolder),rootfolder);
+        findsqlFiles(new File(rootfolder),rootfolder);
     
     }
 
