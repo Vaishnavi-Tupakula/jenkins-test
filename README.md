@@ -2,6 +2,9 @@
 
 ## <h1> Day 1
 
+<br>
+<br>
+
 ### <h2> Created a Git repo (public)
 #### Created this repo from GitHub web
 
@@ -27,6 +30,8 @@ Key points
   jdk or jre path has to be provided during the jenkins setup. Make sure that the supported java version is installed.
 
 * After logging into jenkins, create a username and password.Server set up is successful.
+  Username : Vaishnavi
+  Password : Vavp1234@
 
   <br>
 
