@@ -12,7 +12,7 @@ import java.util.*;
 
 public class GenerateChangeLogs {
 
-    private static final String rootfolder="D:\\Projects\\jenkins-test\\Release 1.0.0";
+    private static final String rootfolder="Release 1.0.0";
 
     private static String curFolder="";
 
