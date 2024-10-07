@@ -16,11 +16,7 @@
     <dependencies>
         <!-- Add any dependencies you may require here -->
         <!-- Example: -->
-        <dependency>
-            <groupId>org.w3c.dom</groupId>
-            <artifactId>dom</artifactId>
-            <version>2.3.0</version>
-        </dependency>
+        
     </dependencies>
 
     <build>
