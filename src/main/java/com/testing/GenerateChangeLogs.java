@@ -1,3 +1,4 @@
+package com.testing;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class GenerateChangeLogs {
 
-    private static final String ROOT_FOLDER = "Release 1.0.0";
-    private static final String rootfolder="Release 1.0.0";
+    private static final String ROOT_FOLDER = "src\\main\\resources\\Release 1.0.0";
+    private static final String rootfolder="src\\main\\resources\\Release 1.0.0";
     private static final String MASTER_CHANGELOG_FILE = "master-changelog.xml";
     private static final String TEAM_CHANGELOG_FILE = "team-changelog.xml";
 
