@@ -122,15 +122,15 @@ public class GenerateChangeLogs {
     public static void main(String[] args) throws Exception {
 
         // Uncomment the following line to delete all generated XML files
-        //deleteGeneratedFiles(new File(ROOT_FOLDER));
+        deleteGeneratedFiles(new File(ROOT_FOLDER));
 
-        findsqlFiles(new File(rootfolder),rootfolder);
+        //findsqlFiles(new File(rootfolder),rootfolder);
 
         // Generate team changelogs
-        generateTeamChangelogs(new File(ROOT_FOLDER));
+        //generateTeamChangelogs(new File(ROOT_FOLDER));
         
         // Generate master changelog
-        generateMasterChangelog(new File(ROOT_FOLDER));
+        //generateMasterChangelog(new File(ROOT_FOLDER));
         
         
     }
